@@ -52,14 +52,18 @@ const matriculateSubject=async(idUser:string,idSubject:string)=>{
 
 const getUsersInSubject = async (idSubject:string) => {
     //busco la asignatura en concreto
-    const SpecificSubject = await SubjectModel.findOne({_idSubject:idSubject});
+    console.log('idSubject:', idSubject);
+    const SpecificSubject = await SubjectModel.findOne({_id:idSubject});
+    console.log('SpecificSubject:', SpecificSubject);
+    //declaro una array de donde "guardar" los usuarios que hay en una assignatura
     const studentsIds = SpecificSubject?.users ?? [];
+    console.log('studentsIds:', studentsIds);
     const users = await UserModel.find({
         _id: { $in: studentsIds }
       });
-      return users;
-
-}
+      console.log('users:', users);
+    return users;
+};
 
 
 

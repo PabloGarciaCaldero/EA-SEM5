@@ -9,6 +9,6 @@ router.post("/",post_Subject);
 router.put("/:idSubject",update_Subject);
 router.delete("/:idSubject",delete_Subject);
 router.post("/matriculate",matriculate_Subject);
-router.get("/usersInSubject", get_Users_In_Subject);
+router.get("/usersInSubject/:idSubject", get_Users_In_Subject);
 
 export{router};

@@ -22,6 +22,17 @@ const get_Subjects = async (req:Request,res:Response) => {
     }
 };
 
+const get_Users_In_Subject = async({params}:Request, res:Response)=>{
+    try{
+        const {idSubject} = params;
+        const response = await getUsersInSubject(idSubject);
+        const data = response ? response:"NOT_FOUND";
+        res.send(data);
+    } catch(e){
+        handleHttp(res, "ERROR_GETTING_IN_SUBJECT");
+    }
+};
+
 const update_Subject = async ({params,body}:Request,res:Response)=>{
     try{
         const {idSubject} = params;
@@ -61,14 +72,6 @@ const matriculate_Subject = async ({body}:Request,res:Response)=>{
     }
 };
 
-const get_Users_In_Subject = async({params}:Request, res:Response)=>{
-    try{
-        const {idSubject} = params;
-        const response = await getUsersInSubject(idSubject);
-        res.send(response);
-    }catch(e){
-        handleHttp(res, "ERROR_GETTING__IN_SUBJECT")
-    }
-};
+
 
 export{get_Subject,get_Subjects,post_Subject,update_Subject,delete_Subject,matriculate_Subject, get_Users_In_Subject};
