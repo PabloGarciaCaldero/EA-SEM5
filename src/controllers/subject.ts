@@ -1,5 +1,5 @@
 import { Request,Response } from "express";
-import { insertSubject,getSubject,getSubjects,updateSubject,deleteSubject, matriculateSubject, getUsersInSubject} from "../services/subject";
+import { insertSubject,getSubject,getSubjects,updateSubject,deleteSubject, matriculateSubject, getUsersInSubject, getSubjectsOfAnUser} from "../services/subject";
 import { handleHttp } from "../utils/error.handle";
 
 const get_Subject = async({params}:Request,res:Response)=>{
@@ -19,17 +19,6 @@ const get_Subjects = async (req:Request,res:Response) => {
         res.send(response);
     } catch(e){
         handleHttp(res,"ERROR_GET_SUBJECT");
-    }
-};
-
-const get_Users_In_Subject = async({params}:Request, res:Response)=>{
-    try{
-        const {idSubject} = params;
-        const response = await getUsersInSubject(idSubject);
-        const data = response ? response:"NOT_FOUND";
-        res.send(data);
-    } catch(e){
-        handleHttp(res, "ERROR_GETTING_IN_SUBJECT");
     }
 };
 
@@ -72,6 +61,28 @@ const matriculate_Subject = async ({body}:Request,res:Response)=>{
     }
 };
 
+const get_Users_In_Subject = async({params}:Request, res:Response)=>{
+    try{
+        const {idSubject} = params;
+        const response = await getUsersInSubject(idSubject);
+        const data = response ? response:"NOT_FOUND";
+        res.send(data);
+    } catch(e){
+        handleHttp(res, "ERROR_GETTING_IN_SUBJECT");
+    }
+};
+
+const get_Subjects_Of_An_User = async({params}:Request, res:Response)=>{
+    try{
+        const {idUser} = params;
+        const response = await getSubjectsOfAnUser(idUser);
+        const data = response ? response:"NOT_FOUND";
+        res.send(data);
+    } catch(e){
+        handleHttp(res, "ERROR_GETTING_IN_SUBJECT");
+    }
+};
 
 
-export{get_Subject,get_Subjects,post_Subject,update_Subject,delete_Subject,matriculate_Subject, get_Users_In_Subject};
+
+export{get_Subject,get_Subjects,post_Subject,update_Subject,delete_Subject,matriculate_Subject, get_Users_In_Subject, get_Subjects_Of_An_User};
